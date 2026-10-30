@@ -1,6 +1,7 @@
 /**
  * BEYOND REACH - Interactive Accessibility Features & Modules
  * Implements AAC soundboard, Live Transcriber, Places Explorer, Transit, Services, Emergency SOS, and AI Assistant.
+ * Fully eliminates stray lines and enhances interactive accuracy.
  */
 
 class FeatureManager {
@@ -14,18 +15,28 @@ class FeatureManager {
   }
 
   // ==========================================================================
-  // READING RULER GUIDE
+  // READING RULER GUIDE (No lingering lines)
   // ==========================================================================
   initReadingRuler() {
-    const ruler = document.createElement('div');
-    ruler.id = 'reading-ruler';
-    ruler.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(ruler);
+    let ruler = document.getElementById('reading-ruler');
+    if (!ruler) {
+      ruler = document.createElement('div');
+      ruler.id = 'reading-ruler';
+      ruler.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(ruler);
+    }
+
+    const updateRulerPosition = (clientY) => {
+      if (document.body.classList.contains('mode-reading-ruler')) {
+        ruler.style.top = `${clientY}px`;
+        ruler.style.display = 'block';
+      } else {
+        ruler.style.display = 'none';
+      }
+    };
 
     window.addEventListener('mousemove', (e) => {
-      if (document.body.classList.contains('mode-reading-ruler')) {
-        ruler.style.top = `${e.clientY}px`;
-      }
+      updateRulerPosition(e.clientY);
     });
 
     window.addEventListener('keydown', (e) => {
@@ -33,7 +44,7 @@ class FeatureManager {
         const active = document.activeElement;
         if (active && active !== document.body) {
           const rect = active.getBoundingClientRect();
-          ruler.style.top = `${rect.top + rect.height / 2}px`;
+          updateRulerPosition(rect.top + rect.height / 2);
         }
       }
     });
@@ -83,7 +94,7 @@ class FeatureManager {
       ? this.aacTiles 
       : this.aacTiles.filter(t => t.category === categoryFilter);
 
-    container.innerHTML = filtered.map((tile, idx) => `
+    container.innerHTML = filtered.map((tile) => `
       <button class="aac-tile" data-speech="${tile.speech}" data-label="${tile.label}" aria-label="${tile.label}: ${tile.speech}">
         <span class="tile-icon" aria-hidden="true">${tile.icon}</span>
         <span class="tile-label">${tile.label}</span>
@@ -113,7 +124,7 @@ class FeatureManager {
 
   speakSentence() {
     if (this.sentenceBuilder.length === 0) {
-      window.voiceEngine.speak('Sentence is empty. Tap icons to build words.');
+      window.voiceEngine.speak('Sentence is empty. Tap cards to build words.');
       return;
     }
     const fullSpeech = this.sentenceBuilder.map(item => item.speech).join(' ');
@@ -126,7 +137,7 @@ class FeatureManager {
     if (this.sentenceBuilder.length === 0) {
       display.innerHTML = '<span class="text-muted">Tap cards to construct an audible sentence...</span>';
     } else {
-      display.innerHTML = this.sentenceBuilder.map(item => `<span class="sentence-word-pill">${item.label}</span>`).join(' ');
+      display.innerHTML = this.sentenceBuilder.map(item => `<span style="background: var(--accent-green); color: #04101e; padding: 4px 10px; border-radius: 9999px; font-weight: 700; display: inline-block; margin-right: 6px;">${item.label}</span>`).join(' ');
     }
   }
 
@@ -154,7 +165,7 @@ class FeatureManager {
       buttonEl.classList.add('btn-emergency');
     }
     if (outputEl) {
-      outputEl.innerHTML = '<p class="caption-active"><em>[Listening for speech in real-time...]</em></p>';
+      outputEl.innerHTML = '<p class="caption-active" style="color: var(--accent-green);"><em>[Listening for speech in real-time...]</em></p>';
     }
 
     const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -176,7 +187,7 @@ class FeatureManager {
             }
           }
           if (outputEl) {
-            outputEl.innerHTML = `<p class="final-text">${finalTranscript}</p><p class="interim-text"><em>${interimTranscript}</em></p>`;
+            outputEl.innerHTML = `<p class="final-text" style="color: #ffffff; font-weight: 600;">${finalTranscript}</p><p class="interim-text" style="color: var(--accent-green);"><em>${interimTranscript}</em></p>`;
             outputEl.scrollTop = outputEl.scrollHeight;
           }
           this.showLiveCaption(finalTranscript || interimTranscript);
@@ -208,7 +219,7 @@ class FeatureManager {
       if (!this.isTranscribing) return;
       const phrase = demoPhrases[idx % demoPhrases.length];
       if (outputEl) {
-        outputEl.innerHTML += `<p class="final-text">• ${phrase}</p>`;
+        outputEl.innerHTML += `<p class="final-text" style="color: #ffffff; margin-bottom: 6px;">• ${phrase}</p>`;
         outputEl.scrollTop = outputEl.scrollHeight;
       }
       this.showLiveCaption(phrase);
@@ -241,7 +252,7 @@ class FeatureManager {
     clearTimeout(this.captionTimer);
     this.captionTimer = setTimeout(() => {
       box.classList.remove('visible');
-    }, 4000);
+    }, 4500);
   }
 
   // ==========================================================================
@@ -259,14 +270,12 @@ class FeatureManager {
       return;
     }
 
-    const state = window.appState.get();
-    const btn = document.getElementById('sos-main-button');
     const notice = document.getElementById('sos-status-notice');
     
     // Start 3 second safety countdown
     this.countdown = 3;
     if (notice) {
-      notice.innerHTML = `<span style="color: #facc15; font-size: 1.3rem; font-weight: 800;">Triggering SOS in ${this.countdown} seconds... Click again to abort!</span>`;
+      notice.innerHTML = `<span style="color: #facc15; font-size: 1.35rem; font-weight: 800;">🚨 Triggering SOS in ${this.countdown} seconds... Click again to abort!</span>`;
     }
     window.voiceEngine.audio.playEarcon('alert');
     window.voiceEngine.speak(`Emergency SOS activated. Countdown: ${this.countdown}`);
@@ -274,7 +283,7 @@ class FeatureManager {
     this.countdownTimer = setInterval(() => {
       this.countdown--;
       if (this.countdown > 0) {
-        if (notice) notice.innerHTML = `<span style="color: #facc15; font-size: 1.3rem; font-weight: 800;">Triggering SOS in ${this.countdown} seconds... Click again to abort!</span>`;
+        if (notice) notice.innerHTML = `<span style="color: #facc15; font-size: 1.35rem; font-weight: 800;">🚨 Triggering SOS in ${this.countdown} seconds... Click again to abort!</span>`;
         window.voiceEngine.speak(`${this.countdown}`);
       } else {
         clearInterval(this.countdownTimer);
@@ -293,12 +302,12 @@ class FeatureManager {
     const notice = document.getElementById('sos-status-notice');
     if (notice) {
       notice.innerHTML = `
-        <div style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; padding: 20px; border-radius: 12px; margin-top: 20px;">
+        <div style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; padding: 22px; border-radius: 14px; margin-top: 20px;">
           <h2 style="color: #ef4444; margin-bottom: 8px;">🚨 EMERGENCY BEACON TRANSMITTING</h2>
           <p style="color: #ffffff; font-weight: 600;">Alert sent to: ${window.appState.get().user.emergencyContact}</p>
           <p style="color: #ffffff;">Simulated GPS Coordinates: <strong>37.7749° N, 122.4194° W (Accuracy: 4 meters)</strong></p>
           <p style="color: #ffffff;">Medical Profile Attached: <strong>${window.appState.get().user.bloodType} | Allergies: ${window.appState.get().user.allergies}</strong></p>
-          <button class="btn btn-primary" onclick="window.features.cancelSOS()" style="margin-top: 16px;">
+          <button class="btn btn-primary" onclick="window.features.cancelSOS()" style="margin-top: 18px;">
             Cancel Emergency Siren & Reset
           </button>
         </div>
@@ -318,7 +327,7 @@ class FeatureManager {
     
     const notice = document.getElementById('sos-status-notice');
     if (notice) {
-      notice.innerHTML = '<span style="color: #10b981; font-weight: 700;">Emergency alert cancelled. All systems stand by.</span>';
+      notice.innerHTML = '<span style="color: #10b981; font-weight: 700;">✓ Emergency alert cancelled. All systems standing by.</span>';
     }
     window.voiceEngine.speak('Emergency alert cancelled.');
     window.voiceEngine.audio.playEarcon('click');
@@ -331,7 +340,7 @@ class FeatureManager {
     this.signDictionary = {
       'help': '👋 Both hands flat, thumbs up, dominant hand lifts the non-dominant hand upward.',
       'emergency': '🚨 Right hand forms letter "E", shakes rapidly back and forth in front of chest.',
-      'thank you': '🙏 Open flat hand touches chin and moves forward toward the person with a smile.',
+      'thank you': '🙏 Open flat hand touches chin and moves forward toward the person with a warm smile.',
       'hospital': '🏥 Index and middle finger form a cross pattern on upper opposite arm.',
       'restroom': '🚻 Hand forms "T" shape, shaking side-to-side gently.',
       'water': '💧 "W" handshape touches the chin twice.',
@@ -348,7 +357,8 @@ class FeatureManager {
     // Append user message
     const userBubble = document.createElement('div');
     userBubble.className = 'chat-bubble chat-user';
-    userBubble.innerHTML = `<strong>You:</strong> <p>${this.escapeHTML(question)}</p>`;
+    userBubble.style.cssText = 'background: rgba(5, 241, 160, 0.15); border: 1px solid var(--accent-green); padding: 14px; border-radius: 12px; align-self: flex-end; max-width: 85%; margin-bottom: 8px;';
+    userBubble.innerHTML = `<strong style="color: var(--accent-green);">You:</strong> <p style="color: #ffffff; margin-top: 4px;">${this.escapeHTML(question)}</p>`;
     chatContainer.appendChild(userBubble);
 
     // Generate intelligent accessibility response
@@ -357,9 +367,9 @@ class FeatureManager {
     let signTerm = null;
 
     if (q.includes('ramp') || q.includes('wheelchair') || q.includes('step-free')) {
-      reply = "All places in our Explore directory with wheelchair badges offer certified 1:12 slope ramps, automatic wide doors (min 36 inches), and accessible elevators.";
+      reply = "All venues in our Explore directory with wheelchair badges offer certified 1:12 slope ramps, automatic wide doors, and accessible elevators.";
     } else if (q.includes('sign') || q.includes('deaf') || q.includes('gesture')) {
-      reply = "Our platform provides certified on-demand ISL/ASL interpreters. For quick communication, here is a sign reference:";
+      reply = "Our platform provides certified on-demand ISL/ASL interpreters. Here is the sign reference:";
       signTerm = 'help';
     } else if (q.includes('hospital') || q.includes('doctor')) {
       reply = "Metro City Hospital is 1.2 miles away. It features tactile guide pathways, 24/7 sign language interpreters, and low-barrier emergency rooms.";
@@ -379,27 +389,28 @@ class FeatureManager {
     setTimeout(() => {
       const botBubble = document.createElement('div');
       botBubble.className = 'chat-bubble chat-bot';
+      botBubble.style.cssText = 'background: var(--bg-tertiary); border: 1px solid var(--border-subtle); padding: 16px; border-radius: 12px; max-width: 90%; margin-bottom: 8px;';
       
       let signMarkup = '';
       if (signTerm && this.signDictionary[signTerm]) {
         signMarkup = `
           <div class="sign-reference-card" style="background: var(--bg-primary); border: 1px solid var(--border-medium); padding: 12px; border-radius: 8px; margin-top: 10px;">
-            <div style="font-weight: 700; color: var(--accent-cyan);">Sign Language Reference: "${signTerm.toUpperCase()}"</div>
-            <div style="font-size: 1.1rem; margin-top: 4px;">${this.signDictionary[signTerm]}</div>
+            <div style="font-weight: 700; color: var(--accent-green);">Sign Language Reference: "${signTerm.toUpperCase()}"</div>
+            <div style="font-size: 1.05rem; margin-top: 4px; color: #ffffff;">${this.signDictionary[signTerm]}</div>
           </div>
         `;
       }
 
       botBubble.innerHTML = `
-        <strong>BEYOND REACH Assistant:</strong>
-        <p>${reply}</p>
+        <strong style="color: var(--accent-green);">BEYOND REACH Assistant:</strong>
+        <p style="color: #ffffff; margin-top: 4px;">${reply}</p>
         ${signMarkup}
       `;
       chatContainer.appendChild(botBubble);
       chatContainer.scrollTop = chatContainer.scrollHeight;
 
       window.voiceEngine.speak(reply);
-    }, 400);
+    }, 350);
   }
 
   showSignDemo(word) {
@@ -408,10 +419,10 @@ class FeatureManager {
     const viewer = document.getElementById('sign-viewer-output');
     if (viewer) {
       viewer.innerHTML = `
-        <div style="text-align: center; padding: 20px;">
-          <h3 style="color: var(--accent-cyan); margin-bottom: 8px;">Sign Demonstration: "${term.toUpperCase()}"</h3>
-          <p style="font-size: 1.2rem; font-weight: 600; line-height: 1.6;">${explanation}</p>
-          <div style="margin-top: 16px;">
+        <div style="text-align: center; padding: 22px;">
+          <h3 style="color: var(--accent-green); margin-bottom: 10px; font-size: 1.4rem;">Sign Demonstration: "${term.toUpperCase()}"</h3>
+          <p style="font-size: 1.15rem; font-weight: 600; line-height: 1.6; color: #ffffff;">${explanation}</p>
+          <div style="margin-top: 18px;">
             <button class="btn btn-secondary" onclick="window.voiceEngine.speak('${explanation}')">
               🔊 Read Sign Instructions Aloud
             </button>
@@ -454,4 +465,3 @@ class FeatureManager {
 
 // Global features instance
 window.features = new FeatureManager();
-

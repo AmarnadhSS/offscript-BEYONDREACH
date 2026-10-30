@@ -6,6 +6,14 @@
   <title>BEYOND REACH - Inclusive Accessibility Platform</title>
   <meta name="description" content="One Platform. Different Abilities. Equal Opportunities. An inclusive accessibility platform for blind, deaf, physically disabled, speech-disabled, and cognitive/learning-disabled individuals.">
   
+  <!-- Favicon using real uploaded logo -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <!-- CSS Stylesheets -->
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/accessibility.css">
@@ -24,22 +32,19 @@
   <!-- Real-Time Subtitles / Closed Captions Overlay for Deaf & Hard of Hearing Users -->
   <div id="live-caption-display" role="status" aria-live="assertive" aria-atomic="true"></div>
 
+  <!-- Real-Time Voice Recognition Floating Feedback Pill -->
+  <div id="voice-transcript-banner" role="status" aria-live="polite"></div>
+
   <!-- ==========================================================================
        TOP APP HEADER
        ========================================================================== -->
   <header class="app-header" role="banner">
-    <!-- Brand Identity -->
+    <!-- Brand Identity with Uploaded Logo -->
     <a href="#welcome" class="header-brand" aria-label="BEYOND REACH Home. One Platform. Different Abilities. Equal Opportunities.">
-      <div class="brand-icon-wrapper" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <circle cx="12" cy="12" r="9"/>
-          <path d="M12 3v18"/>
-          <path d="M3 12h18"/>
-          <circle cx="12" cy="12" r="4" fill="currentColor"/>
-        </svg>
-      </div>
-      <div>
-        <div class="brand-name">BEYOND REACH</div>
+      <img src="assets/logo.png" alt="BEYOND REACH Logo" class="brand-logo-img">
+      <div class="brand-text-block">
+        <span class="brand-name">BEYOND REACH</span>
+        <span class="brand-subline">Accessibility Platform</span>
       </div>
     </a>
 
@@ -56,31 +61,31 @@
     <div class="header-actions">
       <div class="quick-access-bar" role="toolbar" aria-label="Quick Accessibility Controls">
         <button id="btn-font-decrease" class="icon-btn" title="Decrease Text Size" aria-label="Decrease font size">
-          <span style="font-size: 0.9rem; font-weight: 700;">A-</span>
+          <span style="font-size: 0.92rem; font-weight: 800;">A-</span>
         </button>
         <button id="btn-font-increase" class="icon-btn" title="Increase Text Size" aria-label="Increase font size">
-          <span style="font-size: 1.15rem; font-weight: 800;">A+</span>
+          <span style="font-size: 1.15rem; font-weight: 800; color: var(--accent-green);">A+</span>
         </button>
         <button id="btn-theme-toggle" class="icon-btn" title="Switch High Contrast Themes (Alt+C)" aria-label="Cycle high-contrast themes">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/></svg>
         </button>
         <button id="btn-screen-reader" class="icon-btn" title="Read Screen Aloud (Alt+R)" aria-label="Read screen aloud">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
         </button>
         <button id="btn-header-mic" class="icon-btn mic-pulse-btn" title="Voice Command Assistant (Alt+V)" aria-label="Activate Voice Command Recognition">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
         </button>
       </div>
 
       <!-- Notifications -->
       <button id="btn-notifications" class="icon-btn" title="Notifications" aria-label="View notifications, 2 unread">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
         <span class="btn-badge">2</span>
       </button>
 
       <!-- Profile Avatar Shortcut -->
       <a href="#dashboard/profile" class="icon-btn" title="My Profile" aria-label="Go to My Profile">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </a>
     </div>
   </header>
@@ -96,18 +101,17 @@
     <section id="view-welcome" class="view active" aria-labelledby="welcome-heading">
       <div class="page-container">
         <div class="welcome-hero">
+          
           <div class="welcome-badge">
             <span aria-hidden="true">★</span> 
             <span data-i18n="tagline">One Platform. Different Abilities. Equal Opportunities.</span>
           </div>
-          <div class="welcome-logo-large" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <circle cx="12" cy="12" r="9"/>
-              <path d="M12 3v18"/>
-              <path d="M3 12h18"/>
-              <circle cx="12" cy="12" r="4" fill="currentColor"/>
-            </svg>
+
+          <!-- Official Uploaded Brand Logo Showcase -->
+          <div class="welcome-logo-card" aria-label="BEYOND REACH official logo with Blind, Deaf, and Mobility icons">
+            <img src="assets/logo.png" alt="BEYOND REACH Logo" class="welcome-logo-img">
           </div>
+
           <h1 id="welcome-heading" data-i18n="welcomeTitle">Hello, Welcome to BEYOND REACH.</h1>
           <p class="tagline" data-i18n="tagline">One Platform. Different Abilities. Equal Opportunities.</p>
           <p class="intro-text" data-i18n="welcomeIntro">
@@ -132,17 +136,17 @@
           <div class="command-console-card" role="region" aria-label="Voice and text command console">
             <div class="command-console-header">
               <div class="command-console-title">
-                <span aria-hidden="true">⌨️</span>
-                <span>Command Assistant (Voice or Text)</span>
+                <span aria-hidden="true" style="color: var(--accent-green); font-size: 1.3rem;">⌨️</span>
+                <span>Voice & Text Command Console</span>
               </div>
               <button id="btn-welcome-mic-icon" class="mic-pulse-btn" title="Toggle Microphone" aria-label="Toggle voice command microphone">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
               </button>
             </div>
             
             <form id="welcome-command-form" class="command-input-row">
               <input type="text" id="welcome-command-input" 
-                placeholder="Type command (e.g., 'explore places', 'emergency', 'select hindi')..." 
+                placeholder="Type command (e.g., 'explore places', 'emergency', 'select hindi', 'bigger text')..." 
                 data-i18n-placeholder="textCommandPlaceholder"
                 aria-label="Type navigation or accessibility command">
               <button type="submit" class="btn btn-primary" aria-label="Execute typed command">
@@ -151,7 +155,7 @@
             </form>
 
             <div class="command-chips-row">
-              <span style="font-size: 0.8rem; color: var(--text-muted); align-self: center;">Quick commands:</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted); align-self: center; font-weight: 600;">Quick Actions:</span>
               <button type="button" class="command-chip" data-cmd="dashboard">Dashboard</button>
               <button type="button" class="command-chip" data-cmd="explore places">Explore Places</button>
               <button type="button" class="command-chip" data-cmd="emergency">Emergency SOS</button>
@@ -175,7 +179,7 @@
         </div>
 
         <!-- Voice Search & Spoken Instructions Controls -->
-        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
+        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px;">
           <button id="btn-language-voice-select" class="btn btn-secondary">
             <span aria-hidden="true">🎙️</span>
             <span data-i18n="langSpeakPrompt">Speak Language Name</span>
@@ -229,7 +233,7 @@
           <button id="btn-accessibility-back" class="btn btn-outline">
             ← <span data-i18n="back">Back</span>
           </button>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
             <button id="btn-accessibility-skip" class="btn btn-secondary">
               <span data-i18n="skip">Skip this step</span>
             </button>
@@ -252,6 +256,11 @@
         </div>
 
         <div class="auth-container-card">
+          <!-- Logo Badge above Auth Form -->
+          <div class="auth-logo-badge">
+            <img src="assets/logo.png" alt="BEYOND REACH Logo" class="auth-logo-img">
+          </div>
+
           <!-- Tab Switcher -->
           <div class="auth-tabs" role="tablist">
             <button id="auth-tab-login" class="auth-tab-btn active" role="tab" aria-selected="true" aria-controls="form-login" data-i18n="tabLogin">Sign In</button>
@@ -275,8 +284,8 @@
               </div>
             </div>
 
-            <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
-              <button type="button" id="btn-forgot-password" style="background: none; border: none; color: var(--accent-cyan); cursor: pointer; font-size: 0.9rem;" data-i18n="forgotPassword">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 22px;">
+              <button type="button" id="btn-forgot-password" style="background: none; border: none; color: var(--accent-green); cursor: pointer; font-size: 0.92rem; font-weight: 600;" data-i18n="forgotPassword">
                 Forgot Password?
               </button>
             </div>
@@ -356,6 +365,14 @@
         
         <!-- Sidebar Navigation (12 Accessible Sections) -->
         <aside class="dashboard-sidebar" role="navigation" aria-label="Dashboard Sidebar">
+          <div class="sidebar-brand-block">
+            <img src="assets/logo.png" alt="BEYOND REACH Logo" class="sidebar-brand-logo">
+            <div>
+              <div style="font-weight: 800; font-family: var(--font-display); font-size: 1.15rem; color: #ffffff;">BEYOND REACH</div>
+              <div style="font-size: 0.72rem; color: var(--accent-green); font-weight: 700; letter-spacing: 0.1em;">ACTIVE PLATFORM</div>
+            </div>
+          </div>
+
           <nav>
             <a href="#dashboard/overview" class="nav-item active" data-section="overview" data-i18n="navDashboard">
               <span aria-hidden="true">📊</span> Dashboard
@@ -403,35 +420,35 @@
           <div id="dash-sec-overview" class="dashboard-section-view active">
             <!-- Welcome Banner -->
             <div class="dashboard-welcome-banner">
-              <h1 id="dashboard-heading" style="font-size: 2.2rem; margin-bottom: 8px;">
-                <span data-i18n="dashGreeting">Welcome back,</span> <span id="dash-welcome-user-name">Alex Morgan</span>
+              <h1 id="dashboard-heading" style="font-size: 2.3rem; margin-bottom: 8px;">
+                <span data-i18n="dashGreeting">Welcome back,</span> <span id="dash-welcome-user-name" style="color: var(--accent-green);">Alex Morgan</span>
               </h1>
-              <p style="color: var(--text-secondary); margin-bottom: 12px;" data-i18n="dashAdaptedFor">Adapted for your preferences:</p>
+              <p style="color: var(--text-secondary); margin-bottom: 14px;" data-i18n="dashAdaptedFor">Adapted for your preferences:</p>
               <div id="dash-adapted-tags-container" class="adapted-tags-row">
                 <!-- Populated dynamically -->
               </div>
             </div>
 
             <!-- Quick Access Cards -->
-            <h2 style="margin-bottom: 18px;" data-i18n="quickTools">Quick Accessibility Tools</h2>
-            <div class="grid-4" style="margin-bottom: 36px;">
+            <h2 style="margin-bottom: 20px;" data-i18n="quickTools">Quick Accessibility Tools</h2>
+            <div class="grid-4" style="margin-bottom: 38px;">
               <div class="card" style="text-align: center; cursor: pointer;" onclick="window.appState.navigate('dashboard', 'emergency')">
-                <div style="font-size: 2.2rem; margin-bottom: 8px;">🚨</div>
+                <div style="font-size: 2.3rem; margin-bottom: 10px;">🚨</div>
                 <h4 style="color: var(--accent-emergency);">Emergency SOS</h4>
                 <p style="font-size: 0.88rem; margin-top: 4px;">1-touch alarm, strobe, and contact alert</p>
               </div>
               <div class="card" style="text-align: center; cursor: pointer;" onclick="window.appState.navigate('dashboard', 'communication')">
-                <div style="font-size: 2.2rem; margin-bottom: 8px;">🎙️</div>
+                <div style="font-size: 2.3rem; margin-bottom: 10px; color: var(--accent-green);">🎙️</div>
                 <h4>Live Transcriber</h4>
                 <p style="font-size: 0.88rem; margin-top: 4px;">Speech-to-text captions</p>
               </div>
               <div class="card" style="text-align: center; cursor: pointer;" onclick="window.appState.navigate('dashboard', 'communication')">
-                <div style="font-size: 2.2rem; margin-bottom: 8px;">💬</div>
+                <div style="font-size: 2.3rem; margin-bottom: 10px; color: var(--accent-green);">💬</div>
                 <h4>AAC Soundboard</h4>
                 <p style="font-size: 0.88rem; margin-top: 4px;">Instant spoken phrases</p>
               </div>
               <div class="card" style="text-align: center; cursor: pointer;" onclick="window.voiceEngine.readActivePage()">
-                <div style="font-size: 2.2rem; margin-bottom: 8px;">🔊</div>
+                <div style="font-size: 2.3rem; margin-bottom: 10px; color: var(--accent-green);">🔊</div>
                 <h4>Read Screen</h4>
                 <p style="font-size: 0.88rem; margin-top: 4px;">Audible page description</p>
               </div>
@@ -440,38 +457,38 @@
             <!-- Recommended Services & Recent Activities -->
             <div class="grid-2">
               <div>
-                <h2 style="margin-bottom: 18px;" data-i18n="recommendedServices">Recommended for You</h2>
+                <h2 style="margin-bottom: 20px;" data-i18n="recommendedServices">Recommended for You</h2>
                 <div id="dash-recommended-container" style="display: flex; flex-direction: column; gap: 16px;">
                   <!-- Dynamic based on selected profile -->
                 </div>
               </div>
 
               <div>
-                <h2 style="margin-bottom: 18px;" data-i18n="recentActivity">Recent Activities</h2>
+                <h2 style="margin-bottom: 20px;" data-i18n="recentActivity">Recent Activities</h2>
                 <div class="card">
-                  <ul style="list-style: none; display: flex; flex-direction: column; gap: 16px;">
-                    <li style="display: flex; gap: 12px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
-                      <span style="font-size: 1.4rem;">🗺️</span>
+                  <ul style="list-style: none; display: flex; flex-direction: column; gap: 18px;">
+                    <li style="display: flex; gap: 14px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 14px;">
+                      <span style="font-size: 1.5rem;">🗺️</span>
                       <div>
-                        <strong>Navigated to Metro Central Station</strong>
-                        <p style="font-size: 0.85rem;">Step-free ramp route with tactile guide paving used.</p>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">Today, 10:24 AM</span>
+                        <strong style="color: #ffffff;">Navigated to Metro Central Station</strong>
+                        <p style="font-size: 0.88rem;">Step-free ramp route with tactile guide paving used.</p>
+                        <span style="font-size: 0.78rem; color: var(--accent-green);">Today, 10:24 AM</span>
                       </div>
                     </li>
-                    <li style="display: flex; gap: 12px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
-                      <span style="font-size: 1.4rem;">🚖</span>
+                    <li style="display: flex; gap: 14px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 14px;">
+                      <span style="font-size: 1.5rem;">🚖</span>
                       <div>
-                        <strong>Accessible Cab Booked</strong>
-                        <p style="font-size: 0.85rem;">Driver Carlos Santana confirmed wheelchair ramp van.</p>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">Yesterday, 4:15 PM</span>
+                        <strong style="color: #ffffff;">Accessible Cab Booked</strong>
+                        <p style="font-size: 0.88rem;">Driver Carlos Santana confirmed wheelchair ramp van.</p>
+                        <span style="font-size: 0.78rem; color: var(--accent-green);">Yesterday, 4:15 PM</span>
                       </div>
                     </li>
-                    <li style="display: flex; gap: 12px;">
-                      <span style="font-size: 1.4rem;">🔊</span>
+                    <li style="display: flex; gap: 14px;">
+                      <span style="font-size: 1.5rem;">🔊</span>
                       <div>
-                        <strong>Emergency Contact Verified</strong>
-                        <p style="font-size: 0.85rem;">Sarah Morgan (+1 555-987-6543) active on SOS beacon.</p>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">Oct 28, 2026</span>
+                        <strong style="color: #ffffff;">Emergency Contact Verified</strong>
+                        <p style="font-size: 0.88rem;">Sarah Morgan (+1 555-987-6543) active on SOS beacon.</p>
+                        <span style="font-size: 0.78rem; color: var(--accent-green);">Oct 28, 2026</span>
                       </div>
                     </li>
                   </ul>
@@ -483,11 +500,11 @@
           <!-- 2. MY PROFILE -->
           <div id="dash-sec-profile" class="dashboard-section-view">
             <h1 style="margin-bottom: 12px;">My Accessible Profile</h1>
-            <p style="margin-bottom: 28px;">Manage your personal identity, accessibility presets, and critical emergency health contacts.</p>
+            <p style="margin-bottom: 30px;">Manage your personal identity, accessibility presets, and critical emergency health contacts.</p>
 
             <div class="grid-2">
               <div class="card">
-                <h3 style="margin-bottom: 20px;">Personal & Contact Details</h3>
+                <h3 style="margin-bottom: 22px; color: var(--accent-green);">Personal & Contact Details</h3>
                 <div class="form-group">
                   <label>Full Name</label>
                   <input type="text" id="prof-name" value="Alex Morgan">
@@ -508,7 +525,7 @@
               </div>
 
               <div class="card">
-                <h3 style="margin-bottom: 20px;">Medical & Accessibility Data</h3>
+                <h3 style="margin-bottom: 22px; color: var(--accent-green);">Medical & Accessibility Data</h3>
                 <div class="form-group">
                   <label>Blood Type</label>
                   <input type="text" id="prof-blood" value="O Positive (O+)">
@@ -519,7 +536,7 @@
                 </div>
                 <div class="form-group">
                   <label>Accessibility Accommodations & Equipment</label>
-                  <textarea id="prof-notes" rows="4" style="width: 100%; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; color: var(--text-primary); font-family: inherit;">Power wheelchair user; requires 1:12 ramp access; uses screen reader and tactile markers.</textarea>
+                  <textarea id="prof-notes" rows="4" style="width: 100%; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px; color: var(--text-primary); font-family: inherit;">Power wheelchair user; requires 1:12 ramp access; uses screen reader and tactile markers.</textarea>
                 </div>
                 <button class="btn btn-secondary" onclick="window.appState.navigate('accessibility')">Change Accessibility Categories</button>
               </div>
@@ -529,26 +546,26 @@
           <!-- 3. ACCESSIBILITY ASSISTANT -->
           <div id="dash-sec-assistant" class="dashboard-section-view">
             <h1 style="margin-bottom: 12px;">Accessibility Assistant</h1>
-            <p style="margin-bottom: 24px;">Ask questions via voice or text. Get step-free directions, sign language demos, or assistance.</p>
+            <p style="margin-bottom: 26px;">Ask questions via voice or text. Get step-free directions, sign language demos, or assistance.</p>
 
             <div class="grid-2">
               <!-- Chat Console -->
-              <div class="card" style="display: flex; flex-direction: column; height: 580px;">
+              <div class="card" style="display: flex; flex-direction: column; height: 600px;">
                 <div id="assistant-chat-messages" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 10px 0;">
-                  <div class="chat-bubble chat-bot" style="background: var(--bg-tertiary); padding: 16px; border-radius: 12px; border: 1px solid var(--border-subtle);">
-                    <strong>BEYOND REACH Assistant:</strong>
-                    <p>Hello! I am your accessibility assistant. How can I support you today? You can ask for wheelchair ramps, sign language demonstrations, transport bookings, or emergency help.</p>
+                  <div class="chat-bubble chat-bot" style="background: var(--bg-tertiary); padding: 18px; border-radius: 14px; border: 1px solid var(--border-subtle);">
+                    <strong style="color: var(--accent-green);">BEYOND REACH Assistant:</strong>
+                    <p style="margin-top: 6px; color: #ffffff;">Hello! I am your accessibility assistant. How can I support you today? You can ask for wheelchair ramps, sign language demonstrations, transport bookings, or emergency help.</p>
                   </div>
                 </div>
 
-                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0;">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0;">
                   <button type="button" class="assistant-prompt-chip command-chip">How to find wheelchair ramps?</button>
                   <button type="button" class="assistant-prompt-chip command-chip">Show sign language for help</button>
                   <button type="button" class="assistant-prompt-chip command-chip">Nearest accessible hospital</button>
                 </div>
 
                 <form id="assistant-chat-form" style="display: flex; gap: 10px;">
-                  <input type="text" id="assistant-input-text" placeholder="Type your accessibility question..." style="flex: 1; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; color: var(--text-primary);">
+                  <input type="text" id="assistant-input-text" placeholder="Type your accessibility question..." style="flex: 1; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px; color: var(--text-primary); font-family: inherit;">
                   <button type="button" class="icon-btn mic-pulse-btn" onclick="window.voiceEngine.toggleListening()" aria-label="Speak your question">
                     🎙️
                   </button>
@@ -558,10 +575,10 @@
 
               <!-- Sign Language Demo Panel -->
               <div class="card">
-                <h3 style="margin-bottom: 16px;">Sign Language Demonstration Library</h3>
-                <p style="font-size: 0.95rem; margin-bottom: 16px;">Click any essential phrase to view hand gesture instructions and speech explanation.</p>
+                <h3 style="margin-bottom: 16px; color: var(--accent-green);">Sign Language Demonstration Library</h3>
+                <p style="font-size: 0.95rem; margin-bottom: 18px;">Click any essential phrase to view hand gesture instructions and speech explanation.</p>
                 
-                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px;">
                   <button class="btn btn-secondary" onclick="window.features.showSignDemo('help')">Help</button>
                   <button class="btn btn-secondary" onclick="window.features.showSignDemo('emergency')">Emergency</button>
                   <button class="btn btn-secondary" onclick="window.features.showSignDemo('thank you')">Thank You</button>
@@ -570,7 +587,7 @@
                   <button class="btn btn-secondary" onclick="window.features.showSignDemo('water')">Water</button>
                 </div>
 
-                <div id="sign-viewer-output" style="background: var(--bg-primary); border: 2px dashed var(--border-medium); border-radius: 12px; padding: 24px; min-height: 220px; display: flex; align-items: center; justify-content: center;">
+                <div id="sign-viewer-output" style="background: var(--bg-primary); border: 2px dashed var(--border-medium); border-radius: 14px; padding: 26px; min-height: 240px; display: flex; align-items: center; justify-content: center;">
                   <p style="color: var(--text-muted); text-align: center;">Select a word above to see sign instructions and auditory playback.</p>
                 </div>
               </div>
@@ -580,10 +597,10 @@
           <!-- 4. EXPLORE PLACES -->
           <div id="dash-sec-explore" class="dashboard-section-view">
             <h1 style="margin-bottom: 12px;">Explore Accessible Places</h1>
-            <p style="margin-bottom: 24px;">Discover verified step-free venues, tactile pathways, braille menus, and sensory quiet rooms.</p>
+            <p style="margin-bottom: 26px;">Discover verified step-free venues, tactile pathways, braille menus, and sensory quiet rooms.</p>
 
             <!-- Filters -->
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px;">
               <button class="btn btn-primary place-filter-btn active" data-filter="all">All Venues</button>
               <button class="btn btn-secondary place-filter-btn" data-filter="healthcare">Healthcare</button>
               <button class="btn btn-secondary place-filter-btn" data-filter="transit">Transit Hubs</button>
@@ -596,12 +613,12 @@
               <!-- Venue 1 -->
               <div class="card place-card" data-category="healthcare">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <span style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 4px 10px; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">100% Certified</span>
+                  <span style="background: rgba(5, 241, 160, 0.2); color: var(--accent-green); padding: 4px 12px; border-radius: 9999px; font-size: 0.82rem; font-weight: 700;">100% Certified</span>
                   <span style="color: var(--text-muted); font-size: 0.85rem;">0.8 miles away</span>
                 </div>
                 <h3>Metro City General Hospital</h3>
-                <p style="margin: 8px 0 14px; font-size: 0.92rem;">Emergency & Outpatient Care with 24/7 sign language interpreters on staff.</p>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                <p style="margin: 8px 0 14px; font-size: 0.94rem;">Emergency & Outpatient Care with 24/7 sign language interpreters on staff.</p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px;">
                   <span class="disability-badge" style="font-size: 0.75rem;">♿ Ramp (1:12)</span>
                   <span class="disability-badge" style="font-size: 0.75rem;">🧏 ISL/ASL Staff</span>
                   <span class="disability-badge" style="font-size: 0.75rem;">🦯 Tactile Paving</span>
@@ -612,12 +629,12 @@
               <!-- Venue 2 -->
               <div class="card place-card" data-category="transit">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 4px 10px; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">Full Step-Free</span>
+                  <span style="background: rgba(5, 241, 160, 0.2); color: var(--accent-green); padding: 4px 12px; border-radius: 9999px; font-size: 0.82rem; font-weight: 700;">Full Step-Free</span>
                   <span style="color: var(--text-muted); font-size: 0.85rem;">0.3 miles away</span>
                 </div>
                 <h3>Central Intermodal Metro Station</h3>
-                <p style="margin: 8px 0 14px; font-size: 0.92rem;">Dual elevators to all platform levels with audible arrival chimes and tactile floor guides.</p>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                <p style="margin: 8px 0 14px; font-size: 0.94rem;">Dual elevators to all platform levels with audible arrival chimes and tactile floor guides.</p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px;">
                   <span class="disability-badge" style="font-size: 0.75rem;">🛗 Dual Elevators</span>
                   <span class="disability-badge" style="font-size: 0.75rem;">🔊 Audio Chimes</span>
                   <span class="disability-badge" style="font-size: 0.75rem;">🦻 Hearing Loop</span>
@@ -628,12 +645,12 @@
               <!-- Venue 3 -->
               <div class="card place-card" data-category="culture">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <span style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; padding: 4px 10px; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">Sensory Friendly</span>
+                  <span style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; padding: 4px 12px; border-radius: 9999px; font-size: 0.82rem; font-weight: 700;">Sensory Friendly</span>
                   <span style="color: var(--text-muted); font-size: 0.85rem;">1.4 miles away</span>
                 </div>
                 <h3>Central Sensory Public Library</h3>
-                <p style="margin: 8px 0 14px; font-size: 0.92rem;">Comprehensive Braille collection, screen reader computer terminals, and quiet sensory pods.</p>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                <p style="margin: 8px 0 14px; font-size: 0.94rem;">Comprehensive Braille collection, screen reader computer terminals, and quiet sensory pods.</p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px;">
                   <span class="disability-badge" style="font-size: 0.75rem;">📚 Braille Catalog</span>
                   <span class="disability-badge" style="font-size: 0.75rem;">🎧 Screen Readers</span>
                   <span class="disability-badge" style="font-size: 0.75rem;">🤫 Low-Stimulation</span>
@@ -646,11 +663,11 @@
           <!-- 5. ACCESSIBLE TRANSPORTATION -->
           <div id="dash-sec-transport" class="dashboard-section-view">
             <h1 style="margin-bottom: 12px;">Accessible Transportation</h1>
-            <p style="margin-bottom: 24px;">Book wheelchair-ramp vans, check low-floor buses, and receive step-by-step audio transit arrival notifications.</p>
+            <p style="margin-bottom: 26px;">Book wheelchair-ramp vans, check low-floor buses, and receive step-by-step audio transit arrival notifications.</p>
 
             <div class="grid-2">
               <div class="card">
-                <h3 style="margin-bottom: 16px;">Book an Accessible Ride</h3>
+                <h3 style="margin-bottom: 18px; color: var(--accent-green);">Book an Accessible Ride</h3>
                 <form id="form-transit-booking">
                   <div class="form-group">
                     <label>Pickup Location</label>
@@ -662,7 +679,7 @@
                   </div>
                   <div class="form-group">
                     <label>Vehicle Accessibility Type</label>
-                    <select style="width: 100%; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; color: var(--text-primary); font-family: inherit;">
+                    <select style="width: 100%; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px; color: var(--text-primary); font-family: inherit;">
                       <option>Hydraulic Wheelchair Ramp Van (Rear Entry)</option>
                       <option>Side-Entry Lowered Floor Minivan</option>
                       <option>Low-Floor Kneeling City Transit Bus</option>
@@ -678,25 +695,25 @@
               </div>
 
               <div class="card">
-                <h3 style="margin-bottom: 16px;">Live Transit Tracker & Audio Beacons</h3>
-                <div style="background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 18px; margin-bottom: 16px;">
+                <h3 style="margin-bottom: 18px; color: var(--accent-green);">Live Transit Tracker & Audio Beacons</h3>
+                <div style="background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 20px; margin-bottom: 18px;">
                   <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 6px;">
-                    <span>Route 14 (Downtown Express)</span>
-                    <span style="color: #10b981;">Arriving in 3 mins</span>
+                    <span style="color: #ffffff;">Route 14 (Downtown Express)</span>
+                    <span style="color: var(--accent-green);">Arriving in 3 mins</span>
                   </div>
-                  <p style="font-size: 0.9rem; color: var(--text-secondary);">Vehicle #4092: Low-floor bus with automated deployable ramp & visual arrival signs.</p>
-                  <button class="btn btn-secondary" style="margin-top: 10px;" onclick="window.voiceEngine.speak('Route 14 Downtown Express will arrive at your stop in 3 minutes. Coach has a wheelchair ramp.')">
+                  <p style="font-size: 0.92rem; color: var(--text-secondary);">Vehicle #4092: Low-floor bus with automated deployable ramp & visual arrival signs.</p>
+                  <button class="btn btn-secondary" style="margin-top: 12px;" onclick="window.voiceEngine.speak('Route 14 Downtown Express will arrive at your stop in 3 minutes. Coach has a wheelchair ramp.')">
                     🔊 Play Audio Arrival Cue
                   </button>
                 </div>
 
-                <div style="background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 18px;">
+                <div style="background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 20px;">
                   <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 6px;">
-                    <span>Blue Line Metro (Eastbound)</span>
-                    <span style="color: #38bdf8;">Arriving in 7 mins</span>
+                    <span style="color: #ffffff;">Blue Line Metro (Eastbound)</span>
+                    <span style="color: var(--accent-green);">Arriving in 7 mins</span>
                   </div>
-                  <p style="font-size: 0.9rem; color: var(--text-secondary);">Platform 2: Level-boarding train, priority wheelchair spots in cars 2 & 4.</p>
-                  <button class="btn btn-secondary" style="margin-top: 10px;" onclick="window.voiceEngine.speak('Blue Line Metro eastbound train arrives in 7 minutes on Platform 2.')">
+                  <p style="font-size: 0.92rem; color: var(--text-secondary);">Platform 2: Level-boarding train, priority wheelchair spots in cars 2 & 4.</p>
+                  <button class="btn btn-secondary" style="margin-top: 12px;" onclick="window.voiceEngine.speak('Blue Line Metro eastbound train arrives in 7 minutes on Platform 2.')">
                     🔊 Play Audio Arrival Cue
                   </button>
                 </div>
@@ -707,11 +724,11 @@
           <!-- 6. FIND ACCESSIBLE SERVICES -->
           <div id="dash-sec-services" class="dashboard-section-view">
             <h1 style="margin-bottom: 12px;">Find Accessible Services</h1>
-            <p style="margin-bottom: 24px;">Certified professional sign interpreters, Braille transcriptionists, mobility assistants, and therapists.</p>
+            <p style="margin-bottom: 26px;">Certified professional sign interpreters, Braille transcriptionists, mobility assistants, and therapists.</p>
 
             <div class="grid-3">
               <div class="card">
-                <div style="font-size: 2.2rem; margin-bottom: 12px;">🧏</div>
+                <div style="font-size: 2.3rem; margin-bottom: 14px; color: var(--accent-green);">🧏</div>
                 <h3>On-Demand Sign Language Interpreters</h3>
                 <p style="margin: 8px 0 16px; font-size: 0.95rem;">Instant video relay interpreter or schedule in-person assistance for appointments.</p>
                 <button class="btn btn-primary" style="width: 100%;" onclick="alert('Connecting to Certified Sign Language Interpreter queue... Video relay will open.')">
@@ -720,7 +737,7 @@
               </div>
 
               <div class="card">
-                <div style="font-size: 2.2rem; margin-bottom: 12px;">📚</div>
+                <div style="font-size: 2.3rem; margin-bottom: 14px; color: var(--accent-green);">📚</div>
                 <h3>Braille & Tactile Transcription</h3>
                 <p style="margin: 8px 0 16px; font-size: 0.95rem;">Upload documents or forms for same-day transcription into Grade 2 Braille or embossed diagrams.</p>
                 <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Braille transcription request received. Standard turnaround is 4 hours.')">
@@ -729,7 +746,7 @@
               </div>
 
               <div class="card">
-                <div style="font-size: 2.2rem; margin-bottom: 12px;">🦯</div>
+                <div style="font-size: 2.3rem; margin-bottom: 14px; color: var(--accent-green);">🦯</div>
                 <h3>Trained Sighted Mobility Guides</h3>
                 <p style="margin: 8px 0 16px; font-size: 0.95rem;">Vetted human guides to accompany you to airports, medical appointments, or shopping.</p>
                 <button class="btn btn-secondary" style="width: 100%;" onclick="alert('Guide escort reservation initialized. A coordinator will call your mobile number.')">
@@ -742,14 +759,14 @@
           <!-- 7. COMMUNICATION TOOLS -->
           <div id="dash-sec-communication" class="dashboard-section-view">
             <h1 style="margin-bottom: 12px;">Communication Tools</h1>
-            <p style="margin-bottom: 24px;">AAC (Augmentative & Alternative Communication) soundboard, real-time speech transcription, and custom voice generator.</p>
+            <p style="margin-bottom: 26px;">AAC (Augmentative & Alternative Communication) soundboard, real-time speech transcription, and custom voice generator.</p>
 
             <!-- AAC Soundboard Section -->
-            <div class="card" style="margin-bottom: 32px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+            <div class="card" style="margin-bottom: 34px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 18px;">
                 <div>
-                  <h3 style="font-size: 1.35rem;">AAC Pictogram Soundboard</h3>
-                  <p style="font-size: 0.92rem;">Tap any card to instantly vocalize words or build full sentences.</p>
+                  <h3 style="font-size: 1.4rem; color: var(--accent-green);">AAC Pictogram Soundboard</h3>
+                  <p style="font-size: 0.94rem;">Tap any card to instantly vocalize words or build full sentences.</p>
                 </div>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                   <button class="btn btn-primary aac-cat-btn active" data-category="all">All</button>
@@ -761,8 +778,8 @@
               </div>
 
               <!-- Sentence Builder Bar -->
-              <div style="background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
-                <div id="aac-sentence-box" style="flex: 1; font-size: 1.15rem; font-weight: 600;">
+              <div style="background: var(--bg-primary); border: 1px solid var(--border-medium); border-radius: 10px; padding: 16px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px;">
+                <div id="aac-sentence-box" style="flex: 1; font-size: 1.2rem; font-weight: 600;">
                   <span class="text-muted">Tap cards to construct an audible sentence...</span>
                 </div>
                 <div style="display: flex; gap: 8px;">
@@ -780,9 +797,9 @@
             <!-- Live Speech Transcriber Section -->
             <div class="grid-2">
               <div class="card">
-                <h3 style="margin-bottom: 10px;">Live Speech-to-Text Transcriber</h3>
-                <p style="font-size: 0.92rem; margin-bottom: 16px;">Converts real-time ambient conversation into high-contrast text captions for deaf users.</p>
-                <button id="btn-toggle-transcriber" class="btn btn-primary" style="width: 100%; margin-bottom: 16px;">
+                <h3 style="margin-bottom: 10px; color: var(--accent-green);">Live Speech-to-Text Transcriber</h3>
+                <p style="font-size: 0.94rem; margin-bottom: 18px;">Converts real-time ambient conversation into high-contrast text captions for deaf users.</p>
+                <button id="btn-toggle-transcriber" class="btn btn-primary" style="width: 100%; margin-bottom: 18px;">
                   🎙️ Start Live Transcriber
                 </button>
                 <div id="transcribe-live-output" class="transcriber-output" role="region" aria-live="polite">
@@ -792,9 +809,9 @@
 
               <!-- Text-to-Speech Custom Voice Communicator -->
               <div class="card">
-                <h3 style="margin-bottom: 10px;">Custom Voice Communicator</h3>
-                <p style="font-size: 0.92rem; margin-bottom: 16px;">Type any customized phrase and click speak to communicate effortlessly.</p>
-                <textarea id="tts-custom-input" rows="4" style="width: 100%; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 1.1rem; margin-bottom: 16px;" placeholder="Type what you want to say out loud..."></textarea>
+                <h3 style="margin-bottom: 10px; color: var(--accent-green);">Custom Voice Communicator</h3>
+                <p style="font-size: 0.94rem; margin-bottom: 18px;">Type any customized phrase and click speak to communicate effortlessly.</p>
+                <textarea id="tts-custom-input" rows="4" style="width: 100%; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px; color: var(--text-primary); font-family: inherit; font-size: 1.15rem; margin-bottom: 18px;" placeholder="Type what you want to say out loud..."></textarea>
                 <button class="btn btn-primary" style="width: 100%;" onclick="const val = document.getElementById('tts-custom-input').value; if(val) window.voiceEngine.speak(val); else window.voiceEngine.speak('Please type something first.');">
                   🔊 Speak Out Loud
                 </button>
@@ -805,9 +822,9 @@
           <!-- 8. EMERGENCY ASSISTANCE -->
           <div id="dash-sec-emergency" class="dashboard-section-view">
             <h1 style="color: var(--accent-emergency); margin-bottom: 12px;">Emergency Assistance (SOS)</h1>
-            <p style="margin-bottom: 24px;">Immediate emergency beacon. Triggers high-decibel audible sirens, high-visibility visual strobe flash, and broadcasts GPS coordinates to your designated contacts.</p>
+            <p style="margin-bottom: 26px;">Immediate emergency beacon. Triggers high-decibel audible sirens, high-visibility visual strobe flash, and broadcasts GPS coordinates to your designated contacts.</p>
 
-            <div class="card" style="text-align: center; border-color: rgba(239, 68, 68, 0.4); margin-bottom: 28px;">
+            <div class="card" style="text-align: center; border-color: rgba(239, 68, 68, 0.4); margin-bottom: 30px;">
               <div class="sos-tactile-wrapper">
                 <button id="sos-main-button" class="sos-big-btn" aria-label="Trigger Emergency SOS Alert">
                   <span>🚨</span>
@@ -822,30 +839,30 @@
             <!-- Medical ID & SOS Details -->
             <div class="grid-2">
               <div class="card">
-                <h3 style="margin-bottom: 16px;">Live Emergency Contacts</h3>
-                <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
-                  <li style="background: var(--bg-tertiary); padding: 12px; border-radius: 8px;">
+                <h3 style="margin-bottom: 18px; color: var(--accent-green);">Live Emergency Contacts</h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px;">
+                  <li style="background: var(--bg-primary); padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
                     <strong>Primary Contact:</strong> Sarah Morgan (Sister) - <code>+1 (555) 987-6543</code>
                   </li>
-                  <li style="background: var(--bg-tertiary); padding: 12px; border-radius: 8px;">
+                  <li style="background: var(--bg-primary); padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
                     <strong>Emergency Services:</strong> 911 / 112 (Universal Dispatch)
                   </li>
-                  <li style="background: var(--bg-tertiary); padding: 12px; border-radius: 8px;">
+                  <li style="background: var(--bg-primary); padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
                     <strong>Accessible Transit Dispatch:</strong> <code>+1 (555) 432-8800</code>
                   </li>
                 </ul>
               </div>
 
               <div class="card">
-                <h3 style="margin-bottom: 16px;">Medical Emergency ID</h3>
-                <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
-                  <li style="background: var(--bg-tertiary); padding: 12px; border-radius: 8px;">
+                <h3 style="margin-bottom: 18px; color: var(--accent-green);">Medical Emergency ID</h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px;">
+                  <li style="background: var(--bg-primary); padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
                     <strong>Blood Group:</strong> O Positive (O+)
                   </li>
-                  <li style="background: var(--bg-tertiary); padding: 12px; border-radius: 8px;">
+                  <li style="background: var(--bg-primary); padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
                     <strong>Severe Allergies:</strong> Penicillin, Peanuts
                   </li>
-                  <li style="background: var(--bg-tertiary); padding: 12px; border-radius: 8px;">
+                  <li style="background: var(--bg-primary); padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
                     <strong>Mobility Equipment:</strong> Electric wheelchair user; cannot use stairs in evacuation.
                   </li>
                 </ul>
@@ -856,28 +873,28 @@
           <!-- 9. COMMUNITY SUPPORT -->
           <div id="dash-sec-community" class="dashboard-section-view">
             <h1 style="margin-bottom: 12px;">Community Support & Peer Network</h1>
-            <p style="margin-bottom: 24px;">Connect with peers, share accessible city tips, and request volunteer buddies.</p>
+            <p style="margin-bottom: 26px;">Connect with peers, share accessible city tips, and request volunteer buddies.</p>
 
             <div class="grid-2">
               <div class="card">
-                <h3 style="margin-bottom: 16px;">Inclusive Discussion Forums</h3>
-                <div style="display: flex; flex-direction: column; gap: 14px;">
-                  <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px;">
+                <h3 style="margin-bottom: 18px; color: var(--accent-green);">Inclusive Discussion Forums</h3>
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                  <div style="background: var(--bg-primary); padding: 18px; border-radius: 10px; border: 1px solid var(--border-subtle);">
                     <h4>Best Step-Free Train Routes to Airport</h4>
-                    <p style="font-size: 0.9rem; margin: 6px 0 10px;">Tips on newly installed platform gap fillers at Central Terminal.</p>
+                    <p style="font-size: 0.92rem; margin: 6px 0 12px;">Tips on newly installed platform gap fillers at Central Terminal.</p>
                     <button class="btn btn-secondary" onclick="window.voiceEngine.speak('Discussion: Best Step-Free Train Routes to Airport. Tips on newly installed platform gap fillers.')">🔊 Read Aloud</button>
                   </div>
-                  <div style="background: var(--bg-tertiary); padding: 16px; border-radius: 8px;">
+                  <div style="background: var(--bg-primary); padding: 18px; border-radius: 10px; border: 1px solid var(--border-subtle);">
                     <h4>Weekly Deaf & Hard of Hearing Social Meetup</h4>
-                    <p style="font-size: 0.9rem; margin: 6px 0 10px;">Casual conversation in ISL/ASL at Unity Cafe & Bakery this Saturday.</p>
+                    <p style="font-size: 0.92rem; margin: 6px 0 12px;">Casual conversation in ISL/ASL at Unity Cafe & Bakery this Saturday.</p>
                     <button class="btn btn-secondary" onclick="window.voiceEngine.speak('Discussion: Weekly Deaf and Hard of Hearing Social Meetup at Unity Cafe.')">🔊 Read Aloud</button>
                   </div>
                 </div>
               </div>
 
               <div class="card">
-                <h3 style="margin-bottom: 16px;">Request a Volunteer Peer Buddy</h3>
-                <p style="font-size: 0.95rem; margin-bottom: 20px;">Need a companion for a trip to the doctor, museum, or market? Connect with trained, background-checked community volunteers.</p>
+                <h3 style="margin-bottom: 18px; color: var(--accent-green);">Request a Volunteer Peer Buddy</h3>
+                <p style="font-size: 0.98rem; margin-bottom: 22px; line-height: 1.7;">Need a companion for a trip to the doctor, museum, or market? Connect with trained, background-checked community volunteers.</p>
                 <button class="btn btn-primary" onclick="alert('Volunteer Buddy network opened. 8 volunteers are available in your area.')">Find a Nearby Buddy</button>
               </div>
             </div>
@@ -886,17 +903,17 @@
           <!-- 10. SETTINGS -->
           <div id="dash-sec-settings" class="dashboard-section-view">
             <h1 style="margin-bottom: 12px;">Accessibility Settings</h1>
-            <p style="margin-bottom: 28px;">Fine-tune sensory, visual, motor, and cognitive options to suit your personal comfort.</p>
+            <p style="margin-bottom: 30px;">Fine-tune sensory, visual, motor, and cognitive options to suit your personal comfort.</p>
 
             <div class="grid-2">
               <!-- Visual & Themes -->
               <div class="card">
-                <h3 style="margin-bottom: 20px;">Visual & Theme Preferences</h3>
+                <h3 style="margin-bottom: 22px; color: var(--accent-green);">Visual & Theme Preferences</h3>
                 
                 <div style="margin-bottom: 24px;">
                   <label style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px;">
                     <span>Text Scale</span>
-                    <span id="settings-text-val">100%</span>
+                    <span id="settings-text-val" style="color: var(--accent-green);">100%</span>
                   </label>
                   <input type="range" id="settings-slider-text" min="100" max="200" step="10" value="100" style="width: 100%;">
                 </div>
@@ -904,7 +921,7 @@
                 <div style="margin-bottom: 24px;">
                   <label style="font-weight: 600; display: block; margin-bottom: 8px;">Contrast Theme</label>
                   <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <button class="btn btn-secondary" onclick="window.appState.updateSettings({theme: 'dark'})">Obsidian Dark</button>
+                    <button class="btn btn-secondary" onclick="window.appState.updateSettings({theme: 'dark'})">Midnight Dark Blue</button>
                     <button class="btn btn-secondary" onclick="window.appState.updateSettings({theme: 'contrast-yellow'})">Yellow on Black</button>
                     <button class="btn btn-secondary" onclick="window.appState.updateSettings({theme: 'contrast-white'})">White on Black</button>
                     <button class="btn btn-secondary" onclick="window.appState.updateSettings({theme: 'soft-dark'})">Soft Charcoal</button>
@@ -929,7 +946,7 @@
 
               <!-- Audio & Mobility -->
               <div class="card">
-                <h3 style="margin-bottom: 20px;">Voice, Sound & Mobility Controls</h3>
+                <h3 style="margin-bottom: 22px; color: var(--accent-green);">Voice, Sound & Mobility Controls</h3>
 
                 <div style="margin-bottom: 20px;">
                   <label style="display: block; font-weight: 600; margin-bottom: 8px;">Voice Speech Rate</label>
@@ -960,11 +977,11 @@
           <!-- 11. HELP AND SUPPORT -->
           <div id="dash-sec-help" class="dashboard-section-view">
             <h1 style="margin-bottom: 12px;">Help, Shortcuts & Guidance</h1>
-            <p style="margin-bottom: 24px;">Full keyboard navigation cheatsheet, spoken voice commands, and accessibility tips.</p>
+            <p style="margin-bottom: 26px;">Full keyboard navigation cheatsheet, spoken voice commands, and accessibility tips.</p>
 
             <div class="grid-2">
               <div class="card">
-                <h3 style="margin-bottom: 16px;">Global Keyboard Shortcuts</h3>
+                <h3 style="margin-bottom: 18px; color: var(--accent-green);">Global Keyboard Shortcuts</h3>
                 <table style="width: 100%; border-collapse: collapse; text-align: left;">
                   <thead>
                     <tr style="border-bottom: 2px solid var(--border-medium);">
@@ -973,25 +990,25 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0;"><code>Alt + V</code></td><td>Activate Voice Command Assistant</td></tr>
-                    <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0;"><code>Alt + S</code></td><td>Trigger Immediate Emergency SOS</td></tr>
-                    <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0;"><code>Alt + R</code></td><td>Read Screen Content Aloud</td></tr>
-                    <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0;"><code>Alt + C</code></td><td>Cycle High Contrast Themes</td></tr>
-                    <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0;"><code>Alt + M</code></td><td>Focus Main Sidebar Navigation</td></tr>
-                    <tr><td style="padding: 10px 0;"><code>Escape</code></td><td>Stop speech, siren, or close popups</td></tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0;"><code style="background: var(--bg-primary); padding: 4px 8px; border-radius: 4px; color: var(--accent-green);">Alt + V</code></td><td>Activate Voice Command Assistant</td></tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0;"><code style="background: var(--bg-primary); padding: 4px 8px; border-radius: 4px; color: var(--accent-green);">Alt + S</code></td><td>Trigger Immediate Emergency SOS</td></tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0;"><code style="background: var(--bg-primary); padding: 4px 8px; border-radius: 4px; color: var(--accent-green);">Alt + R</code></td><td>Read Screen Content Aloud</td></tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0;"><code style="background: var(--bg-primary); padding: 4px 8px; border-radius: 4px; color: var(--accent-green);">Alt + C</code></td><td>Cycle High Contrast Themes</td></tr>
+                    <tr style="border-bottom: 1px solid var(--border-subtle);"><td style="padding: 10px 0;"><code style="background: var(--bg-primary); padding: 4px 8px; border-radius: 4px; color: var(--accent-green);">Alt + M</code></td><td>Focus Main Sidebar Navigation</td></tr>
+                    <tr><td style="padding: 10px 0;"><code style="background: var(--bg-primary); padding: 4px 8px; border-radius: 4px; color: var(--accent-green);">Escape</code></td><td>Stop speech, siren, or close popups</td></tr>
                   </tbody>
                 </table>
               </div>
 
               <div class="card">
-                <h3 style="margin-bottom: 16px;">Spoken Voice Commands</h3>
-                <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px;">
-                  <li>🗣️ <strong>"Go to Dashboard"</strong> — Opens overview</li>
-                  <li>🗣️ <strong>"Explore Places"</strong> — Accessible venues directory</li>
-                  <li>🗣️ <strong>"Select Hindi" / "Select Malayalam"</strong> — Changes language</li>
-                  <li>🗣️ <strong>"Emergency SOS"</strong> — Triggers emergency beacon</li>
-                  <li>🗣️ <strong>"Increase Text" / "Zoom In"</strong> — Enlarge fonts</li>
-                  <li>🗣️ <strong>"High Contrast"</strong> — Toggle high contrast mode</li>
+                <h3 style="margin-bottom: 18px; color: var(--accent-green);">Spoken Voice Commands</h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+                  <li>🗣️ <strong style="color: #ffffff;">"Go to Dashboard"</strong> — Opens overview</li>
+                  <li>🗣️ <strong style="color: #ffffff;">"Explore Places"</strong> — Accessible venues directory</li>
+                  <li>🗣️ <strong style="color: #ffffff;">"Select Hindi" / "Select Malayalam"</strong> — Changes language</li>
+                  <li>🗣️ <strong style="color: #ffffff;">"Emergency SOS"</strong> — Triggers emergency beacon</li>
+                  <li>🗣️ <strong style="color: #ffffff;">"Increase Text" / "Zoom In"</strong> — Enlarge fonts</li>
+                  <li>🗣️ <strong style="color: #ffffff;">"High Contrast"</strong> — Toggle high contrast mode</li>
                 </ul>
               </div>
             </div>
@@ -1008,7 +1025,7 @@
        ========================================================================== -->
   <div class="floating-assistant-trigger" role="complementary" aria-label="Voice Assistant Floating Shortcut">
     <button id="floating-assistant-btn" class="floating-assistant-btn" title="Voice Assistant (Alt+V)" aria-label="Activate Voice Command Assistant">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
     </button>
   </div>
 
@@ -1019,15 +1036,15 @@
   <div id="modal-notifications" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="notif-modal-title">
     <div class="modal-dialog">
       <button class="icon-btn modal-close-btn" onclick="window.closeModal('modal-notifications')" aria-label="Close notifications">✕</button>
-      <h2 id="notif-modal-title" style="margin-bottom: 16px;">Accessibility Notifications</h2>
-      <div style="display: flex; flex-direction: column; gap: 12px;">
-        <div style="background: var(--bg-tertiary); padding: 14px; border-radius: 8px; border-left: 4px solid var(--accent-cyan);">
-          <strong>Low-Floor Transit Arriving</strong>
-          <p style="font-size: 0.9rem;">Bus 14 with hydraulic ramp is 2 stops away.</p>
+      <h2 id="notif-modal-title" style="margin-bottom: 18px; color: var(--accent-green);">Accessibility Notifications</h2>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="background: var(--bg-primary); padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent-green);">
+          <strong style="color: #ffffff;">Low-Floor Transit Arriving</strong>
+          <p style="font-size: 0.92rem; margin-top: 4px;">Bus 14 with hydraulic ramp is 2 stops away.</p>
         </div>
-        <div style="background: var(--bg-tertiary); padding: 14px; border-radius: 8px; border-left: 4px solid #10b981;">
-          <strong>Tactile Route Saved</strong>
-          <p style="font-size: 0.9rem;">Your preferred step-free route to Metro City Hospital is active.</p>
+        <div style="background: var(--bg-primary); padding: 16px; border-radius: 8px; border-left: 4px solid #10b981;">
+          <strong style="color: #ffffff;">Tactile Route Saved</strong>
+          <p style="font-size: 0.92rem; margin-top: 4px;">Your preferred step-free route to Metro City Hospital is active.</p>
         </div>
       </div>
     </div>
@@ -1037,18 +1054,18 @@
   <div id="modal-google-auth" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="google-modal-title">
     <div class="modal-dialog" style="max-width: 440px; text-align: center;">
       <button class="icon-btn modal-close-btn" onclick="window.closeModal('modal-google-auth')" aria-label="Close dialog">✕</button>
-      <h2 id="google-modal-title" style="margin-bottom: 12px;">Sign In with Google</h2>
+      <h2 id="google-modal-title" style="margin-bottom: 12px; color: var(--accent-green);">Sign In with Google</h2>
       <p style="color: var(--text-secondary); margin-bottom: 24px;">Choose an accessible Google account to continue to BEYOND REACH.</p>
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <button class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px;" onclick="window.closeModal('modal-google-auth'); window.appState.updateUser({isLoggedIn: true, name: 'Alex Morgan', email: 'alex.morgan@gmail.com'}); window.appState.navigate('dashboard', 'overview');">
           <div style="text-align: left;">
-            <div style="font-weight: 700;">Alex Morgan</div>
+            <div style="font-weight: 700; color: #ffffff;">Alex Morgan</div>
             <div style="font-size: 0.85rem; color: var(--text-muted);">alex.morgan@gmail.com</div>
           </div>
         </button>
         <button class="btn btn-secondary" style="justify-content: flex-start; padding: 12px 16px;" onclick="window.closeModal('modal-google-auth'); window.appState.updateUser({isLoggedIn: true, name: 'Jordan Chen', email: 'jordan.chen@gmail.com'}); window.appState.navigate('dashboard', 'overview');">
           <div style="text-align: left;">
-            <div style="font-weight: 700;">Jordan Chen</div>
+            <div style="font-weight: 700; color: #ffffff;">Jordan Chen</div>
             <div style="font-size: 0.85rem; color: var(--text-muted);">jordan.chen@gmail.com</div>
           </div>
         </button>
@@ -1058,10 +1075,10 @@
 
   <!-- Forgot Password Modal -->
   <div id="modal-forgot-password" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="forgot-modal-title">
-    <div class="modal-dialog" style="max-width: 440px;">
+    <div class="modal-dialog" style="max-width: 450px;">
       <button class="icon-btn modal-close-btn" onclick="window.closeModal('modal-forgot-password')" aria-label="Close dialog">✕</button>
-      <h2 id="forgot-modal-title" style="margin-bottom: 12px;">Reset Your Password</h2>
-      <p style="color: var(--text-secondary); margin-bottom: 20px;">Enter your email or phone number. We will send an accessible verification code via SMS or voice call.</p>
+      <h2 id="forgot-modal-title" style="margin-bottom: 12px; color: var(--accent-green);">Reset Your Password</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 22px;">Enter your email or phone number. We will send an accessible verification code via SMS or voice call.</p>
       <form onsubmit="event.preventDefault(); alert('Password reset verification code sent to your registered phone & email.'); window.closeModal('modal-forgot-password');">
         <div class="form-group">
           <label>Email or Mobile Number</label>
@@ -1081,4 +1098,3 @@
   <script src="js/app.js"></script>
 </body>
 </html>
-

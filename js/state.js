@@ -56,7 +56,11 @@ class StateManager {
         return {
           ...defaultState,
           ...parsed,
-          settings: { ...defaultState.settings, ...(parsed.settings || {}) },
+          settings: { 
+            ...defaultState.settings, 
+            ...(parsed.settings || {}),
+            readingRuler: false // Prevent stray lingering ruler line
+          },
           user: { ...defaultState.user, ...(parsed.user || {}) }
         };
       }
