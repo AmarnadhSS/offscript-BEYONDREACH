@@ -1,0 +1,238 @@
+/**
+ * BEYOND REACH - Accessibility & Personalization Themes
+ * Custom CSS rules for Blind/Low Vision, Deaf, Mobility, Speech, and Cognitive profiles.
+ */
+
+/* ==========================================================================
+   THEME VARIANTS
+   ========================================================================== */
+
+/* High Contrast Yellow Theme (WCAG AAA Ratio > 19:1) */
+body.theme-contrast-yellow {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #141414;
+  --bg-elevated: #1f1f1f;
+  --bg-glass: rgba(0, 0, 0, 0.95);
+
+  --text-primary: #ffff00;
+  --text-secondary: #ffff55;
+  --text-muted: #cccc00;
+
+  --border-subtle: #ffff00;
+  --border-medium: #ffff00;
+  --border-strong: #ffff00;
+
+  --accent-cyan: #ffff00;
+  --focus-ring: #ffffff;
+  --focus-offset: 4px;
+}
+
+body.theme-contrast-yellow .btn-primary {
+  background: #ffff00;
+  color: #000000;
+  border: 2px solid #ffff00;
+  font-weight: 800;
+}
+
+body.theme-contrast-yellow .btn-secondary,
+body.theme-contrast-yellow .btn-outline {
+  background: #000000;
+  color: #ffff00;
+  border: 2px solid #ffff00;
+}
+
+body.theme-contrast-yellow .nav-item.active {
+  background: #ffff00;
+  color: #000000;
+  border-color: #ffff00;
+}
+
+/* High Contrast White on Black */
+body.theme-contrast-white {
+  --bg-primary: #000000;
+  --bg-secondary: #000000;
+  --bg-tertiary: #1a1a1a;
+  --bg-elevated: #262626;
+
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --text-muted: #e5e5e5;
+
+  --border-subtle: #ffffff;
+  --border-medium: #ffffff;
+  --border-strong: #ffffff;
+
+  --focus-ring: #38bdf8;
+}
+
+body.theme-contrast-white .card,
+body.theme-contrast-white .btn,
+body.theme-contrast-white input {
+  border-width: 2px !important;
+}
+
+/* Soft Dark Theme (Gentle on photophobic eyes) */
+body.theme-soft-dark {
+  --bg-primary: #18181b;
+  --bg-secondary: #27272a;
+  --bg-tertiary: #3f3f46;
+  --bg-elevated: #52525b;
+
+  --text-primary: #f4f4f5;
+  --text-secondary: #d4d4d8;
+  --text-muted: #a1a1aa;
+
+  --border-subtle: rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   DISABILITY PROFILE ADAPTATIONS
+   ========================================================================== */
+
+/* 1. BLIND / LOW VISION MODE */
+body.mode-blind :focus-visible {
+  outline: 4px solid #facc15 !important;
+  outline-offset: 6px !important;
+  box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.9) !important;
+}
+
+body.mode-blind .accessible-card,
+body.mode-blind .btn {
+  border-width: 2px;
+}
+
+/* 2. DEAF / HARD OF HEARING MODE */
+body.mode-deaf .visual-audio-indicator {
+  display: inline-flex !important;
+}
+
+body.mode-visual-alerts.alert-active {
+  animation: visualStrobe 0.8s infinite alternate;
+}
+
+@keyframes visualStrobe {
+  0% { box-shadow: inset 0 0 0 10px rgba(239, 68, 68, 0.9); }
+  100% { box-shadow: inset 0 0 0 20px rgba(239, 68, 68, 0.2); }
+}
+
+/* 3. PHYSICAL / MOBILITY DISABILITIES MODE */
+body.mode-physical .btn,
+body.mode-giant-buttons .btn {
+  min-height: 64px !important;
+  min-width: 64px !important;
+  padding: 16px 28px !important;
+  font-size: 1.15rem !important;
+  gap: 14px !important;
+}
+
+body.mode-physical .icon-btn,
+body.mode-giant-buttons .icon-btn {
+  width: 54px !important;
+  height: 54px !important;
+}
+
+body.mode-physical .nav-item,
+body.mode-giant-buttons .nav-item {
+  padding: 18px 20px !important;
+  font-size: 1.1rem !important;
+  margin-bottom: 6px !important;
+}
+
+body.mode-physical .card,
+body.mode-giant-buttons .card {
+  padding: 28px !important;
+}
+
+/* 4. SPEECH DISABILITIES MODE */
+body.mode-speech .aac-quick-bar {
+  display: block !important;
+}
+
+/* 5. COGNITIVE / LEARNING DISABILITIES (EASY READ) */
+body.mode-cognitive p,
+body.mode-easy-read p,
+body.mode-cognitive li,
+body.mode-easy-read li {
+  font-size: 1.18rem !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0.02em !important;
+}
+
+body.mode-easy-read .easy-read-badge {
+  display: inline-block !important;
+}
+
+body.mode-easy-read .step-number {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  margin-right: 8px;
+}
+
+/* Dyslexic Font Support */
+body.mode-dyslexic {
+  font-family: "OpenDyslexic", "Comic Sans MS", "Comic Sans", cursive, sans-serif !important;
+  letter-spacing: 0.06em !important;
+  word-spacing: 0.15em !important;
+  line-height: 1.9 !important;
+}
+
+/* Reading Ruler Guide */
+#reading-ruler {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: rgba(56, 189, 248, 0.18);
+  border-top: 2px solid rgba(56, 189, 248, 0.6);
+  border-bottom: 2px solid rgba(56, 189, 248, 0.6);
+  pointer-events: none;
+  z-index: 99999;
+  transform: translateY(-50%);
+  transition: top 80ms ease-out;
+}
+
+body.mode-reading-ruler #reading-ruler {
+  display: block;
+}
+
+/* Closed Captions Container */
+#live-caption-display {
+  position: fixed;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
+  width: 90%;
+  background: #000000;
+  color: #ffff00;
+  border: 2px solid #ffff00;
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: none;
+  transition: all var(--transition-normal);
+}
+
+#live-caption-display.visible {
+  display: block;
+  animation: captionPop 0.2s ease-out;
+}
+
+@keyframes captionPop {
+  from { transform: translate(-50%, 15px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
