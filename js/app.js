@@ -227,6 +227,12 @@ function bindWelcomeScreen() {
       btn.classList.toggle('listening', listening);
       btn.setAttribute('aria-pressed', listening ? 'true' : 'false');
     });
+    document.body.classList.toggle('listening', listening);
+  };
+
+  // Sync speech active state for visualizer waveform animation
+  window.voiceEngine.onSpeechStateChange = (speaking) => {
+    document.body.classList.toggle('audio-active', speaking);
   };
 }
 
