@@ -477,17 +477,50 @@ p {
   display: block;
   opacity: 1;
   transform: translateY(0) scale(1);
-  animation: viewEntrance 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideInFromBottom 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes viewEntrance {
+@keyframes slideInFromBottom {
   0% {
     opacity: 0;
-    transform: translateY(16px) scale(0.985);
+    transform: translateY(28px) scale(0.985);
   }
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-36px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -621,12 +654,12 @@ p {
 
 .dashboard-section-view.active {
   display: block;
-  animation: sectionEntrance 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: sectionSlideEntrance 0.36s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes sectionEntrance {
-  0% { opacity: 0; transform: translateY(12px); }
-  100% { opacity: 1; transform: translateY(0); }
+@keyframes sectionSlideEntrance {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
 /* Reduced Motion Mode Support */
