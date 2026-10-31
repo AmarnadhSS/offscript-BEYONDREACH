@@ -546,6 +546,37 @@ function bindDashboardTools() {
       window.voiceEngine.speak('Accessible vehicle booked. Wheelchair ramp van arriving in 6 minutes.');
     });
   }
+
+  // Add Calendar Event Form Submission
+  const formAddEvent = document.getElementById('form-add-calendar-event');
+  if (formAddEvent) {
+    formAddEvent.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('event-input-title').value.trim();
+      const date = document.getElementById('event-input-date').value;
+      const time = document.getElementById('event-input-time').value.trim();
+      const categorySelect = document.getElementById('event-input-category');
+      const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+      const category = selectedOption.value;
+      const icon = selectedOption.getAttribute('data-icon') || '📅';
+      const categoryLabel = selectedOption.getAttribute('data-label') || 'Appointment';
+      const accommodations = document.getElementById('event-input-accommodations').value.trim();
+
+      if (title && date && time) {
+        window.features.addCalendarEvent({
+          title,
+          date,
+          time,
+          category,
+          categoryLabel,
+          icon,
+          accommodations
+        });
+        window.closeModal('modal-add-event');
+        formAddEvent.reset();
+      }
+    });
+  }
 }
 
 // ==========================================================================

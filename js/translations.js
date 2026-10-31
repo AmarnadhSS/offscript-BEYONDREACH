@@ -82,6 +82,7 @@ const TRANSLATIONS = {
     navTransport: 'Accessible Transportation',
     navServices: 'Find Accessible Services',
     navCommunication: 'Communication Tools',
+    navCalendar: 'Accessible Calendar',
     navEmergency: 'Emergency Assistance',
     navCommunity: 'Community Support',
     navSettings: 'Settings',

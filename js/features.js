@@ -12,6 +12,7 @@ class FeatureManager {
     this.initAssistant();
     this.initReadingRuler();
     this.initGlobalSearch();
+    this.initCalendar();
   }
 
   // ==========================================================================
@@ -440,6 +441,7 @@ class FeatureManager {
       { title: 'Explore Wheelchair Ramps & Places', view: 'dashboard', section: 'explore', tags: 'ramp, wheelchair, hospital, places' },
       { title: 'Book Low-Floor Accessible Bus & Taxi', view: 'dashboard', section: 'transport', tags: 'transit, taxi, bus, metro' },
       { title: 'AAC Pictogram Soundboard', view: 'dashboard', section: 'communication', tags: 'aac, speech, soundboard, talk' },
+      { title: 'Accessible Calendar & Appointments Schedule', view: 'dashboard', section: 'calendar', tags: 'calendar, schedule, appointment, appointments, events, reminders' },
       { title: 'Emergency SOS & Siren', view: 'dashboard', section: 'emergency', tags: 'sos, emergency, siren, medical' },
       { title: 'Sign Language Interpreters On-Demand', view: 'dashboard', section: 'services', tags: 'sign language, interpreter, deaf' },
       { title: 'Braille Document Transcription Service', view: 'dashboard', section: 'services', tags: 'braille, blind, tactile' },
@@ -454,6 +456,321 @@ class FeatureManager {
     return this.searchIndex.filter(item => 
       item.title.toLowerCase().includes(q) || item.tags.toLowerCase().includes(q)
     );
+  }
+
+  // ==========================================================================
+  // ACCESSIBLE CALENDAR & SCHEDULE MANAGER
+  // ==========================================================================
+  initCalendar() {
+    this.calCurrentDate = new Date();
+    this.calSelectedDate = new Date();
+    this.calEvents = this.loadCalendarEvents();
+  }
+
+  formatDateKey(date) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  loadCalendarEvents() {
+    const STORAGE_KEY = 'beyond_reach_calendar_events';
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        return JSON.parse(saved);
+      }
+    } catch (e) {
+      console.warn('Failed to load calendar events', e);
+    }
+
+    // Default realistic accessibility appointments
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const inThreeDays = new Date(today);
+    inThreeDays.setDate(inThreeDays.getDate() + 3);
+    const nextWeek = new Date(today);
+    nextWeek.setDate(nextWeek.getDate() + 6);
+
+    const defaults = [
+      {
+        id: 'ev-1',
+        date: this.formatDateKey(today),
+        time: '10:00 AM',
+        title: 'Hydraulic Ramp Van to Metro Hospital',
+        category: 'transit',
+        categoryLabel: 'Accessible Transit',
+        icon: '🚖',
+        accommodations: 'Low-slope ramp, electric wheelchair tie-downs, Driver: Carlos',
+        alert: true
+      },
+      {
+        id: 'ev-2',
+        date: this.formatDateKey(today),
+        time: '03:00 PM',
+        title: 'Physical Therapy & Mobility Check',
+        category: 'medical',
+        categoryLabel: 'Health & Therapy',
+        icon: '💊',
+        accommodations: 'Sensory-quiet room, step-free treatment bay',
+        alert: true
+      },
+      {
+        id: 'ev-3',
+        date: this.formatDateKey(tomorrow),
+        time: '02:30 PM',
+        title: 'On-Demand Sign Language Video Call',
+        category: 'interpreter',
+        categoryLabel: 'Sign Language',
+        icon: '🧏',
+        accommodations: 'Certified ISL Interpreter video relay for doctor review',
+        alert: true
+      },
+      {
+        id: 'ev-4',
+        date: this.formatDateKey(inThreeDays),
+        time: '11:00 AM',
+        title: 'Sighted Mobility Guide Companion Escort',
+        category: 'guide',
+        categoryLabel: 'Mobility Guide',
+        icon: '🦯',
+        accommodations: 'Tactile navigation at Central Library & shopping',
+        alert: false
+      },
+      {
+        id: 'ev-5',
+        date: this.formatDateKey(nextWeek),
+        time: '04:00 PM',
+        title: 'Deaf & Hard of Hearing Community Meetup',
+        category: 'community',
+        categoryLabel: 'Community Meetup',
+        icon: '👥',
+        accommodations: 'Unity Cafe & Bakery, visual menu displays and ASL/ISL table',
+        alert: false
+      }
+    ];
+
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
+    } catch (e) {}
+
+    return defaults;
+  }
+
+  saveCalendarEvents() {
+    try {
+      localStorage.setItem('beyond_reach_calendar_events', JSON.stringify(this.calEvents));
+    } catch (e) {
+      console.warn('Failed to save calendar events', e);
+    }
+  }
+
+  renderCalendar() {
+    const titleEl = document.getElementById('calendar-month-title');
+    const gridEl = document.getElementById('calendar-days-grid');
+    if (!gridEl) return;
+
+    const year = this.calCurrentDate.getFullYear();
+    const month = this.calCurrentDate.getMonth();
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    if (titleEl) {
+      titleEl.textContent = `${monthNames[month]} ${year}`;
+    }
+
+    const firstDayIndex = new Date(year, month, 1).getDay();
+    const totalDays = new Date(year, month + 1, 0).getDate();
+    const prevMonthDays = new Date(year, month, 0).getDate();
+
+    const todayKey = this.formatDateKey(new Date());
+    const selectedKey = this.formatDateKey(this.calSelectedDate);
+
+    let html = '';
+
+    // Previous month offset days
+    for (let i = firstDayIndex - 1; i >= 0; i--) {
+      const dayNum = prevMonthDays - i;
+      html += `
+        <div class="calendar-day-cell other-month" aria-hidden="true">
+          <span class="day-number">${dayNum}</span>
+        </div>
+      `;
+    }
+
+    // Current month days
+    for (let d = 1; d <= totalDays; d++) {
+      const cellDate = new Date(year, month, d);
+      const cellKey = this.formatDateKey(cellDate);
+      const isToday = cellKey === todayKey;
+      const isSelected = cellKey === selectedKey;
+      const dayEvents = this.calEvents.filter(ev => ev.date === cellKey);
+      const hasEvents = dayEvents.length > 0;
+
+      let dotsHtml = '';
+      if (hasEvents) {
+        dotsHtml = `
+          <div class="day-events-dots" aria-hidden="true">
+            ${dayEvents.slice(0, 3).map(ev => `<span class="event-dot dot-${ev.category}"></span>`).join('')}
+            ${dayEvents.length > 3 ? '<span class="event-dot-more">+</span>' : ''}
+          </div>
+        `;
+      }
+
+      html += `
+        <button class="calendar-day-cell current-month ${isToday ? 'is-today' : ''} ${isSelected ? 'is-selected' : ''}"
+          data-date-key="${cellKey}"
+          data-day="${d}"
+          aria-label="${monthNames[month]} ${d}, ${year}. ${hasEvents ? dayEvents.length + ' appointments scheduled.' : 'No appointments.'} ${isToday ? 'Today.' : ''} ${isSelected ? 'Selected.' : ''}">
+          <span class="day-number">${d}</span>
+          ${dotsHtml}
+        </button>
+      `;
+    }
+
+    gridEl.innerHTML = html;
+
+    // Attach click listeners to day cells
+    gridEl.querySelectorAll('.calendar-day-cell.current-month').forEach(cell => {
+      cell.addEventListener('click', () => {
+        const key = cell.getAttribute('data-date-key');
+        const parts = key.split('-');
+        this.calSelectedDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        window.voiceEngine.audio.playEarcon('click');
+        this.renderCalendar();
+        this.renderSelectedDayAgenda();
+      });
+    });
+
+    this.renderSelectedDayAgenda();
+  }
+
+  renderSelectedDayAgenda() {
+    const container = document.getElementById('calendar-agenda-container');
+    const heading = document.getElementById('calendar-selected-date-heading');
+    if (!container) return;
+
+    const dateKey = this.formatDateKey(this.calSelectedDate);
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateFormatted = this.calSelectedDate.toLocaleDateString('en-US', options);
+
+    if (heading) {
+      heading.textContent = `Schedule for ${dateFormatted}`;
+    }
+
+    const events = this.calEvents.filter(ev => ev.date === dateKey);
+
+    if (events.length === 0) {
+      container.innerHTML = `
+        <div style="background: var(--bg-primary); border: 2px dashed var(--border-medium); border-radius: 12px; padding: 32px 20px; text-align: center;">
+          <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 16px;">No appointments or transit booked for this date.</p>
+          <button class="btn btn-primary" onclick="window.features.openAddEventModal('${dateKey}')">
+            + Schedule an Appointment
+          </button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = events.map(ev => `
+      <div class="card event-agenda-card" data-event-id="${ev.id}" style="margin-bottom: 14px; border-left: 5px solid var(--accent-green); padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <span style="font-size: 1.3rem;">${ev.icon || '📅'}</span>
+              <span class="disability-badge" style="font-size: 0.78rem; padding: 4px 10px;">${ev.categoryLabel || 'Appointment'}</span>
+              <strong style="color: var(--accent-green); font-size: 1.05rem;">${ev.time}</strong>
+            </div>
+            <h3 style="font-size: 1.25rem; color: #ffffff; margin-bottom: 6px;">${this.escapeHTML(ev.title)}</h3>
+            <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 8px;"><strong>Accommodations:</strong> ${this.escapeHTML(ev.accommodations)}</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" style="padding: 8px 14px; min-height: 40px; font-size: 0.88rem;" onclick="window.voiceEngine.speak('${this.escapeHTML(ev.time)}: ${this.escapeHTML(ev.title)}. Accommodations: ${this.escapeHTML(ev.accommodations)}')" aria-label="Read event details aloud">
+              🔊 Read
+            </button>
+            <button class="btn btn-outline" style="padding: 8px 12px; min-height: 40px; font-size: 0.88rem; border-color: rgba(239, 68, 68, 0.4); color: #fca5a5;" onclick="window.features.deleteCalendarEvent('${ev.id}')" aria-label="Delete appointment">
+              🗑️
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  prevMonth() {
+    this.calCurrentDate.setMonth(this.calCurrentDate.getMonth() - 1);
+    window.voiceEngine.audio.playEarcon('click');
+    this.renderCalendar();
+  }
+
+  nextMonth() {
+    this.calCurrentDate.setMonth(this.calCurrentDate.getMonth() + 1);
+    window.voiceEngine.audio.playEarcon('click');
+    this.renderCalendar();
+  }
+
+  goToToday() {
+    this.calCurrentDate = new Date();
+    this.calSelectedDate = new Date();
+    window.voiceEngine.audio.playEarcon('nav');
+    this.renderCalendar();
+  }
+
+  openAddEventModal(defaultDateKey = null) {
+    const modal = document.getElementById('modal-add-event');
+    const dateInput = document.getElementById('event-input-date');
+    if (dateInput) {
+      dateInput.value = defaultDateKey || this.formatDateKey(this.calSelectedDate);
+    }
+    if (modal) {
+      modal.classList.add('open');
+      const firstInput = document.getElementById('event-input-title');
+      if (firstInput) firstInput.focus();
+    }
+  }
+
+  addCalendarEvent(eventData) {
+    const newEvent = {
+      id: 'ev-' + Date.now(),
+      ...eventData
+    };
+    this.calEvents.push(newEvent);
+    this.saveCalendarEvents();
+    window.voiceEngine.audio.playEarcon('success');
+    window.voiceEngine.speak(`Appointment scheduled: ${newEvent.title} at ${newEvent.time}`);
+    window.voiceEngine.announceLive(`Appointment added for ${newEvent.date}`);
+    this.renderCalendar();
+  }
+
+  deleteCalendarEvent(id) {
+    this.calEvents = this.calEvents.filter(ev => ev.id !== id);
+    this.saveCalendarEvents();
+    window.voiceEngine.audio.playEarcon('click');
+    window.voiceEngine.announceLive('Appointment deleted');
+    this.renderCalendar();
+  }
+
+  readScheduleAloud() {
+    const dateKey = this.formatDateKey(this.calSelectedDate);
+    const options = { month: 'long', day: 'numeric' };
+    const dateFormatted = this.calSelectedDate.toLocaleDateString('en-US', options);
+    const events = this.calEvents.filter(ev => ev.date === dateKey);
+
+    if (events.length === 0) {
+      window.voiceEngine.speak(`You have no appointments scheduled for ${dateFormatted}.`);
+      return;
+    }
+
+    let speech = `Schedule for ${dateFormatted}. You have ${events.length} appointment${events.length > 1 ? 's' : ''}. `;
+    events.forEach((ev, idx) => {
+      speech += `Appointment ${idx + 1} at ${ev.time}: ${ev.title}. `;
+    });
+
+    window.voiceEngine.speak(speech);
   }
 
   escapeHTML(str) {

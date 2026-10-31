@@ -164,6 +164,7 @@
             <div class="command-chips-row">
               <span style="font-size: 0.85rem; color: var(--text-muted); align-self: center; font-weight: 600;">Quick Actions:</span>
               <button type="button" class="command-chip" data-cmd="dashboard">Dashboard</button>
+              <button type="button" class="command-chip" data-cmd="calendar">Schedule</button>
               <button type="button" class="command-chip" data-cmd="explore places">Explore Places</button>
               <button type="button" class="command-chip" data-cmd="emergency">Emergency SOS</button>
               <button type="button" class="command-chip" data-cmd="select hindi">Select Hindi</button>
@@ -402,6 +403,9 @@
             <a href="#dashboard/communication" class="nav-item" data-section="communication" data-i18n="navCommunication">
               <span aria-hidden="true">💬</span> Communication Tools
             </a>
+            <a href="#dashboard/calendar" class="nav-item" data-section="calendar" data-i18n="navCalendar">
+              <span aria-hidden="true">📅</span> Accessible Calendar
+            </a>
             <a href="#dashboard/emergency" class="nav-item nav-item-emergency" data-section="emergency" data-i18n="navEmergency">
               <span aria-hidden="true">🚨</span> Emergency Assistance
             </a>
@@ -458,6 +462,11 @@
                 <div style="font-size: 2.3rem; margin-bottom: 10px; color: var(--accent-green);">🔊</div>
                 <h4>Read Screen</h4>
                 <p style="font-size: 0.88rem; margin-top: 4px;">Audible page description</p>
+              </div>
+              <div class="card" style="text-align: center; cursor: pointer;" onclick="window.appState.navigate('dashboard', 'calendar')">
+                <div style="font-size: 2.3rem; margin-bottom: 10px; color: var(--accent-green);">📅</div>
+                <h4>My Schedule</h4>
+                <p style="font-size: 0.88rem; margin-top: 4px;">Calendar & appointments</p>
               </div>
             </div>
 
@@ -826,6 +835,81 @@
             </div>
           </div>
 
+          <!-- 7.5. ACCESSIBLE CALENDAR & SCHEDULE SECTION -->
+          <div id="dash-sec-calendar" class="dashboard-section-view">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+              <div>
+                <h1 style="margin-bottom: 8px;">Accessible Calendar & Schedule</h1>
+                <p>Track your accessible transit bookings, sign language sessions, therapy, and medical reminders.</p>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="window.features.openAddEventModal()">
+                  + Add Appointment
+                </button>
+                <button class="btn btn-outline" onclick="window.features.readScheduleAloud()">
+                  🔊 Read Schedule Aloud
+                </button>
+              </div>
+            </div>
+
+            <!-- Calendar Month View Card -->
+            <div class="calendar-wrapper-card">
+              <div class="calendar-top-nav">
+                <div class="calendar-month-display">
+                  <button class="icon-btn" onclick="window.features.prevMonth()" aria-label="Previous Month">
+                    ←
+                  </button>
+                  <h2 id="calendar-month-title">October 2026</h2>
+                  <button class="icon-btn" onclick="window.features.nextMonth()" aria-label="Next Month">
+                    →
+                  </button>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                  <button class="btn btn-secondary" style="padding: 8px 16px; min-height: 42px; font-size: 0.9rem;" onclick="window.features.goToToday()">
+                    Today
+                  </button>
+                  <div style="display: flex; gap: 10px; align-items: center; font-size: 0.84rem; color: var(--text-secondary); margin-left: 10px;">
+                    <span style="display: flex; align-items: center; gap: 5px;"><span class="event-dot dot-transit"></span> Transit</span>
+                    <span style="display: flex; align-items: center; gap: 5px;"><span class="event-dot dot-interpreter"></span> Interpreter</span>
+                    <span style="display: flex; align-items: center; gap: 5px;"><span class="event-dot dot-medical"></span> Medical</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Day of week names -->
+              <div class="calendar-weekdays" aria-hidden="true">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+              </div>
+
+              <!-- Days Grid -->
+              <div id="calendar-days-grid" class="calendar-days-grid" role="grid" aria-label="Monthly Schedule Grid">
+                <!-- Dynamically rendered by FeatureManager -->
+              </div>
+            </div>
+
+            <!-- Selected Date Agenda View -->
+            <div class="card" style="margin-bottom: 24px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 14px;">
+                <h2 id="calendar-selected-date-heading" style="font-size: 1.45rem; color: var(--accent-green);">
+                  Schedule for Today
+                </h2>
+                <button class="btn btn-secondary" onclick="window.features.openAddEventModal()">
+                  + Book for This Date
+                </button>
+              </div>
+
+              <div id="calendar-agenda-container">
+                <!-- Agenda events dynamically rendered -->
+              </div>
+            </div>
+          </div>
+
           <!-- 8. EMERGENCY ASSISTANCE -->
           <div id="dash-sec-emergency" class="dashboard-section-view">
             <h1 style="color: var(--accent-emergency); margin-bottom: 12px;">Emergency Assistance (SOS)</h1>
@@ -1092,6 +1176,53 @@
           <input type="text" required placeholder="alex.morgan@example.com">
         </div>
         <button type="submit" class="btn btn-primary" style="width: 100%;">Send Verification Code</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Calendar Appointment Modal -->
+  <div id="modal-add-event" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="add-event-modal-title">
+    <div class="modal-dialog">
+      <button class="icon-btn modal-close-btn" onclick="window.closeModal('modal-add-event')" aria-label="Close dialog">✕</button>
+      <h2 id="add-event-modal-title" style="margin-bottom: 12px; color: var(--accent-green);">Schedule an Accessible Appointment</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 24px;">Add a medical visit, sign language session, wheelchair cab, or daily reminder.</p>
+      
+      <form id="form-add-calendar-event">
+        <div class="form-group">
+          <label for="event-input-title">Appointment / Event Title</label>
+          <input type="text" id="event-input-title" required placeholder="e.g. Sign Language Consultation with Dr. Rao" autocomplete="off">
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="event-input-date">Date</label>
+            <input type="date" id="event-input-date" required>
+          </div>
+          <div class="form-group">
+            <label for="event-input-time">Time</label>
+            <input type="text" id="event-input-time" required placeholder="e.g. 10:30 AM">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="event-input-category">Service Category</label>
+          <select id="event-input-category" style="width: 100%; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px; color: var(--text-primary); font-family: inherit;">
+            <option value="transit" data-icon="🚖" data-label="Accessible Transit">🚖 Accessible Transit (Wheelchair Cab / Bus)</option>
+            <option value="interpreter" data-icon="🧏" data-label="Sign Language">🧏 Sign Language Video Interpreter</option>
+            <option value="medical" data-icon="🏥" data-label="Health & Therapy">🏥 Hospital, Clinic & Therapy</option>
+            <option value="guide" data-icon="🦯" data-label="Mobility Guide">🦯 Sighted Mobility Guide Companion</option>
+            <option value="community" data-icon="👥" data-label="Community Meetup">👥 Community Support Meetup</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="event-input-accommodations">Required Accommodations & Notes</label>
+          <input type="text" id="event-input-accommodations" placeholder="e.g. Hydraulic ramp required, quiet room, ASL/ISL interpreter" value="Low ramp and tactile assistance requested">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-large" style="width: 100%; margin-top: 10px;">
+          ✓ Confirm & Save to Schedule
+        </button>
       </form>
     </div>
   </div>

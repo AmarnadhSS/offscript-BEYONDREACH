@@ -392,6 +392,14 @@ class VoiceEngine {
       return;
     }
 
+    // 8.5. Accessible Calendar & Schedule
+    if (this.matchAny(text, ['calendar', 'schedule', 'appointments', 'appointment', 'my events', 'events', 'agenda', 'reminders', 'book appointment'])) {
+      this.audio.playEarcon('success');
+      window.appState.navigate('dashboard', 'calendar');
+      this.speak('Opening Accessible Calendar and Schedule');
+      return;
+    }
+
     // 9. AI Assistant
     if (this.matchAny(text, ['assistant', 'ai', 'ai assistant', 'ask', 'question', 'chatbot'])) {
       this.audio.playEarcon('success');

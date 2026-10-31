@@ -63,7 +63,7 @@ class ViewManager {
   showDashboardSection(sectionName) {
     const validSections = [
       'overview', 'profile', 'assistant', 'explore', 
-      'transport', 'services', 'communication', 'emergency', 
+      'transport', 'services', 'communication', 'calendar', 'emergency', 
       'community', 'settings', 'help'
     ];
     const targetSec = validSections.includes(sectionName) ? sectionName : 'overview';
@@ -88,6 +88,10 @@ class ViewManager {
     // Subview specific initializations
     if (targetSec === 'communication') {
       window.features.renderAACGrid('aac-grid-container', 'all');
+    } else if (targetSec === 'calendar') {
+      if (window.features.renderCalendar) {
+        window.features.renderCalendar();
+      }
     }
   }
 
